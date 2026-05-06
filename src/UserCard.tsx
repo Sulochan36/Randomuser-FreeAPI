@@ -84,13 +84,7 @@ const UserCard = ({ user, loading, error, onRefresh }: Props) => {
 
             </div>
 
-            {/* Button */}
-            <button
-                onClick={onRefresh}
-                className="w-full mt-2 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 active:scale-95 transition"
-            >
-                🔄 Generate New User
-            </button>
+            
 
         </div>
     );
