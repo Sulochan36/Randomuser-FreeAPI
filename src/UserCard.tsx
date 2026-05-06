@@ -10,17 +10,24 @@ type Props = {
 const UserCard = ({ user, loading, error, onRefresh }: Props) => {
     if (loading) {
         return (
-            <div className="card">
-                <p>Loading user...</p>
+            <div className="w-full max-w-md bg-white/70 backdrop-blur rounded-2xl shadow-md p-6 text-center">
+                <p className="text-gray-600 text-sm animate-pulse">
+                    Loading user...
+                </p>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="card error">
-                <p>{error}</p>
-                <button onClick={onRefresh}>Retry</button>
+            <div className="w-full max-w-md bg-white/80 backdrop-blur rounded-2xl shadow-md p-6 text-center space-y-4">
+                <p className="text-red-500 text-sm">{error}</p>
+                <button
+                    onClick={onRefresh}
+                    className="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm hover:bg-indigo-700 transition"
+                >
+                    Retry
+                </button>
             </div>
         );
     }
@@ -28,26 +35,63 @@ const UserCard = ({ user, loading, error, onRefresh }: Props) => {
     if (!user) return null;
 
     return (
-        <div className="card">
-            <img src={user.picture.large} alt="user" className="avatar" />
+        <div className="w-full max-w-md bg-white/80 backdrop-blur-xl rounded-3xl shadow-lg p-6 flex flex-col items-center text-center space-y-5 hover:shadow-xl transition">
 
-            <h2>
-                {user.name.title} {user.name.first} {user.name.last}
-            </h2>
+            {/* Avatar */}
+            <img
+                src={user.picture.large}
+                alt="user"
+                className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md"
+            />
 
-            <p><strong>Gender:</strong> {user.gender}</p>
-            <p><strong>Age:</strong> {user.dob.age}</p>
+            {/* Name */}
+            <div>
+                <h2 className="text-xl font-semibold text-gray-800 tracking-tight">
+                    {user.name.first} {user.name.last}
+                </h2>
+                <p className="text-sm text-gray-500">
+                    {user.location.city}, {user.location.country}
+                </p>
+            </div>
 
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Phone:</strong> {user.phone}</p>
-            <p><strong>Cell:</strong> {user.cell}</p>
+            {/* Info Grid */}
+            <div className="w-full grid grid-cols-2 gap-4 text-sm text-gray-700">
 
-            <p>
-                <strong>Location:</strong>{" "}
-                {user.location.city}, {user.location.state}, {user.location.country}
-            </p>
+                <div className="bg-gray-50 rounded-xl p-3">
+                    <p className="text-xs text-gray-500">Gender</p>
+                    <p className="font-medium">{user.gender}</p>
+                </div>
 
-            <button onClick={onRefresh}>Get New User</button>
+                <div className="bg-gray-50 rounded-xl p-3">
+                    <p className="text-xs text-gray-500">Age</p>
+                    <p className="font-medium">{user.dob.age}</p>
+                </div>
+
+                <div className="col-span-2 bg-gray-50 rounded-xl p-3">
+                    <p className="text-xs text-gray-500">Email</p>
+                    <p className="font-medium break-all">{user.email}</p>
+                </div>
+
+                <div className="bg-gray-50 rounded-xl p-3">
+                    <p className="text-xs text-gray-500">Phone</p>
+                    <p className="font-medium">{user.phone}</p>
+                </div>
+
+                <div className="bg-gray-50 rounded-xl p-3">
+                    <p className="text-xs text-gray-500">Cell</p>
+                    <p className="font-medium">{user.cell}</p>
+                </div>
+
+            </div>
+
+            {/* Button */}
+            <button
+                onClick={onRefresh}
+                className="w-full mt-2 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 active:scale-95 transition"
+            >
+                🔄 Generate New User
+            </button>
+
         </div>
     );
 };

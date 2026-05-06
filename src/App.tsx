@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import type { User } from "./types";
 import UserCard from "./UserCard";
-
-
-
 
 type ApiResponse = {
   statusCode: number;
@@ -12,26 +9,23 @@ type ApiResponse = {
   success: boolean;
 };
 
-
 const App = () => {
-
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const url = 'https://api.freeapi.app/api/v1/public/randomusers/user/random';
-  const options = { method: 'GET', headers: { accept: 'application/json' } };
+  const url = "https://api.freeapi.app/api/v1/public/randomusers/user/random";
 
   const fetchUser = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(url,options);
-      const result: ApiResponse = await response.json();
+      const res = await fetch(url);
+      const result: ApiResponse = await res.json();
 
       setUser(result.data);
-    } catch (err) {
+    } catch {
       setError("Failed to fetch user. Please try again.");
     } finally {
       setLoading(false);
@@ -41,14 +35,18 @@ const App = () => {
   useEffect(() => {
     fetchUser();
   }, []);
-  
 
   return (
-    <>
-      <div style={{ textAlign: "center", padding: "20px" }}>
-        <h1>Random User Generator</h1>
-        <p>The API endpoint retrieves a single random user. When accessing this endpoint, you will receive a response containing the details of one randomly selected user.</p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-indigo-200 px-4">
 
+      <div className="w-full max-w-md text-center space-y-6">
+
+        {/* Title */}
+        <h1 className="text-3xl font-semibold text-gray-800 tracking-tight">
+          👤 Random User Generator
+        </h1>
+
+        {/* Card */}
         <UserCard
           user={user}
           loading={loading}
@@ -58,10 +56,8 @@ const App = () => {
 
       </div>
 
+    </div>
+  );
+};
 
-
-    </>
-  )
-}
-
-export default App
+export default App;
