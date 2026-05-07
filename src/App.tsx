@@ -4,15 +4,7 @@ import UserCard from "./UserCard";
 import { fetchUsers } from "./userSerivce";
 import Pagination from "./Pagination";
 
-type ApiResponse = {
-  statusCode: number;
-  data: User;
-  message: string;
-  success: boolean;
-  page: number;
-  nextPage: boolean;
-  previousPage: boolean;
-};
+
 
 const App = () => {
   const [users, setUsers] = useState<User[] | null>([]);
